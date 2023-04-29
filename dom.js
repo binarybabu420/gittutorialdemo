@@ -16,15 +16,22 @@
 // headerTitle.innerText='Goodbye';
 // headerTitle.innerHTML='<h3>Hello</h3>';
 // header.style.borderBottom='solid 3px #000';
-var items =document.getElementsByClassName('list-group-item');
-console.log(items);
-console.log(items[1]);
-items[2].textContent='Hello 2';
-//items[2].style.fontWeight='bold';
-//items[3].style.fonntWeight='bold';
-items[2].style.backgroundColor='yellow';
-// items.style.backgroundColor='#f4f4f4';
-for(var i=0;i<items.length;i++)
+// var items =document.getElementsByClassName('list-group-item');
+// console.log(items);
+// console.log(items[1]);
+// items[2].textContent='Hello 2';
+// //items[2].style.fontWeight='bold';
+// //items[3].style.fonntWeight='bold';
+// items[2].style.backgroundColor='yellow';
+// // items.style.backgroundColor='#f4f4f4';
+// for(var i=0;i<items.length;i++)
+// {
+//     items[i].style.fontWeight='bold';
+// }
+var li=document.getElementsByTagName('li');
+li[2].textContent='hello2';
+li[2].style.backgroundColor='yellow';
+for(var i=0;i<li.length;i++)
 {
-    items[i].style.fontWeight='bold';
+    li[i].style.fontWeight='bold';
 }
