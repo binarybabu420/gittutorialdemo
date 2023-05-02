@@ -95,6 +95,9 @@
 //  item[1].children[0].insertBefore(nDiv,container2[1]);
 var form =document.getElementById('addForm');
 var itemlist=document.getElementById('items');
+var filter=document.getElementById('filter');
+filter.addEventListener('keyup' ,filterItems);
+
 form.addEventListener('submit',addItem);
 //delete event
 itemlist.addEventListener('click',removeItem);
@@ -103,15 +106,23 @@ function addItem(e)
 
     e.preventDefault();
     var newItem=document.getElementById('item').value;
+    var newItem1=document.getElementById('description').value ;
     //create new li element
     var li=document.createElement('li');
+    //var sp=document.createElement('span');
     li.className='list-group-item';
-    console.log(li);
+    //console.log(li);
     //add textnode with input value
-    li.appendChild(document.createTextNode(newItem));
+    li.appendChild(document.createTextNode(newItem+" "));
+    li.appendChild(document.createTextNode(newItem1));
+    //li.append(sp);
+    var editBtn=document.createElement('button');
+    editBtn.className='btn btn-dark btn-sm float-right edit';
+    editBtn.appendChild(document.createTextNode('Edit'));
     var deleteBtn=document.createElement('button');
     deleteBtn.className='btn btn-danger btn-sm float-right delete';
     deleteBtn.appendChild(document.createTextNode('X'))
+    li.appendChild(editBtn);
  li.appendChild(deleteBtn);
     itemlist.appendChild(li);
 }
@@ -126,4 +137,32 @@ function removeItem(e)
     }
 }
    // console.log();
+}
+function filterItems(e)
+{
+    //convert text to lowercase
+    var text=e.target.value.toLowerCase();
+    
+    var items=itemlist.getElementsByTagName('li');
+    Array.from(items).forEach(function(item){
+        var itemName=item.firstChild.textContent;
+    
+      // console.log(item.childNodes);
+    //   if(item.childNodes.length>3)
+    //   console.log(item.childNodes[1]);
+        if(itemName.toLowerCase().indexOf(text)!=-1)
+        {
+            item.style.display='block';
+            
+        }
+        else if(item.childNodes.length>3&&item.childNodes[1].textContent.toLowerCase().indexOf(text)!=-1)
+        {
+            item.style.display='block';
+        }
+        else
+        {
+            item.style.display='none';
+        }
+    })
+    console.log(text);
 }
