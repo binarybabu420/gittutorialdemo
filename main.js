@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         var editBtn=document.createElement('button');
         editBtn.appendChild(document.createTextNode('Edit'));
         li.appendChild(document.createTextNode(d[key].name+" "+d[key].email+" "+d[key].phone));
+        li.id=d[key]._id;
         btn.appendChild(document.createTextNode('Delete'));
         
         li.appendChild(btn);
@@ -42,7 +43,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     {
     e.preventDefault();
      var par=btn.parentElement;
-     localStorage.removeItem(myObj.email);
+     var id=par.id;
+     console.log(id);
+     axios.delete(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${id}`).then(res=>alert("one element got deleted!!")).catch(err=>console.log(err));
 
      par.childNodes[0].remove();
      par.childNodes[0].remove();
@@ -50,6 +53,11 @@ window.addEventListener("DOMContentLoaded",()=>{
      
      
     }
+    
+
+    
+    
+    console.log(document.getElementsByTagName('li'));
       }
     }).catch((err)=>console.log(err));
 })
@@ -107,15 +115,18 @@ function saveLocal(e)
     function removeIt(e)
     {
     e.preventDefault();
+    
      var par=btn.parentElement;
-     localStorage.removeItem(myObj.email);
-
+     var id=par.id;
+     
+     axios.delete(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${id}`).then(res=>alert("element got deleted")).catch(err=>console.log(err));
      par.childNodes[0].remove();
      par.childNodes[0].remove();
      par.childNodes[0].remove();
      
      
     }
+
     
 
     
