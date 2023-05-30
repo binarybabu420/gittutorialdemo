@@ -28,14 +28,33 @@ window.addEventListener("DOMContentLoaded",()=>{
         var nameEdit=document.getElementById('name');
         var emailEdit=document.getElementById('email');
         var phoneEdit=document.getElementById('phone');
-        nameEdit.value=myObj.name;
-        emailEdit.value=myObj.email;
-        phoneEdit.value=myObj.phone;
         var par=editBtn.parentElement;
+        var cid=par.id;
+        let op;
+        axios.get(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${cid}`,).then((res)=>{
+             const obj=res.data;
+             
+                nameEdit.value=obj.name,
+                emailEdit.value=obj.email;
+                phoneEdit.value=obj.phone;
+                 
+                op=
+                {
+                    name:obj.name,
+                    email:obj.email,
+                    phone:obj.phone
+                }
+                
+
+        }).catch(err=>console.log(err));
+         
+       
         par.childNodes[0].remove();
         par.childNodes[0].remove();
         par.childNodes[0].remove();
-        localStorage.removeItem(myObj.email);
+        
+        axios.put(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${cid}`,op).then((res)=>console.log(res)).catch(err=>console.log(err));
+       // localStorage.removeItem(myObj.email);
         
 
     }
