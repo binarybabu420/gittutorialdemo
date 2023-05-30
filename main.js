@@ -1,6 +1,58 @@
 
 var form=document.getElementById('my-form');
 form.addEventListener('submit',saveLocal);
+window.addEventListener("DOMContentLoaded",()=>{
+    axios.get("https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData").then((response)=>{
+    console.log(typeof(response));
+    var d=response.data
+    for(var key in d)
+      {
+        var ul=document.getElementById('users');
+    var li=document.createElement('li');
+    li.className="item";
+        var btn=document.createElement('button');
+        var editBtn=document.createElement('button');
+        editBtn.appendChild(document.createTextNode('Edit'));
+        li.appendChild(document.createTextNode(d[key].name+" "+d[key].email+" "+d[key].phone));
+        btn.appendChild(document.createTextNode('Delete'));
+        
+        li.appendChild(btn);
+        li.appendChild(editBtn);
+        ul.appendChild(li);
+        btn.addEventListener('click',removeIt);
+        editBtn.addEventListener('click',editIt);
+        function editIt(e)
+    {
+        e.preventDefault();
+        var nameEdit=document.getElementById('name');
+        var emailEdit=document.getElementById('email');
+        var phoneEdit=document.getElementById('phone');
+        nameEdit.value=myObj.name;
+        emailEdit.value=myObj.email;
+        phoneEdit.value=myObj.phone;
+        var par=editBtn.parentElement;
+        par.childNodes[0].remove();
+        par.childNodes[0].remove();
+        par.childNodes[0].remove();
+        localStorage.removeItem(myObj.email);
+        
+
+    }
+    function removeIt(e)
+    {
+    e.preventDefault();
+     var par=btn.parentElement;
+     localStorage.removeItem(myObj.email);
+
+     par.childNodes[0].remove();
+     par.childNodes[0].remove();
+     par.childNodes[0].remove();
+     
+     
+    }
+      }
+    }).catch((err)=>console.log(err));
+})
  
 function saveLocal(e)
 {
