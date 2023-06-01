@@ -1,13 +1,13 @@
-var form=document.getElementById('my-form');
-form.addEventListener('submit',saveCrudC);
+var form=document.getElementById('AddItem');
+form.addEventListener('click',saveCrudC);
 window.addEventListener("DOMContentLoaded",()=>{
-    axios.get(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList`).then((response)=>{
+    axios.get("https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList").then((response)=>{
      console.log(response.data)
     var obj=response.data
     
     for(var key in obj)
     {
-        var ul=document.getElementById("list")
+        var ul=document.getElementById('users')
         console.log('control babe')
     
     var li=document.createElement('li')
@@ -24,6 +24,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     // btn2.id='buy3';
     
         li.id=obj[key]._id;
+        li.value=key
         li.appendChild(document.createTextNode(obj[key].ItemName+" "+obj[key].Description+" "+obj[key].Price+" "+obj[key].Quantity+" "))
         li.appendChild(buy1)
        
@@ -36,24 +37,64 @@ window.addEventListener("DOMContentLoaded",()=>{
        buy3.addEventListener('click',buyThree1);
        function buyOne1(e)
 {
+    e.preventDefault();
     let car=e.target.parentElement.id;
+    let c=e.target.parentElement.value;
     console.log(car);
-    obj[car].Quantity=obj[car].Quantity-1;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+
+   // let keep=obj[car].Quantity
+  // console.log(obj[c].Quantity--)
+  obj[c].Quantity--;
+   console.log(obj[c].Quantity);
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+       // _id:obj[c]._id,
+        ItemName:obj[c].ItemName,
+        Description:obj[c].Description,
+        Price:obj[c].Price,
+        Quantity:obj[c].Quantity 
+    }
+    ).then(res=>console.log(res)).catch(err=>console.log(err));
    // myObj.Price=myObj-1;
 }
 function buyTwo1(e)
-{let car=e.target.parentElement.id;
+{
+    e.preventDefault();
+    let car=e.target.parentElement.id;
+    let c=e.target.parentElement.value;
     console.log(car);
-    obj[car].Quantity=myObj[car].Quantity-2;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+
+   // let keep=obj[car].Quantity
+  // console.log(obj[c].Quantity--)
+  obj[c].Quantity=obj[c].Quantity-2;
+   console.log(obj[c].Quantity);
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+       // _id:obj[c]._id,
+        ItemName:obj[c].ItemName,
+        Description:obj[c].Description,
+        Price:obj[c].Price,
+        Quantity:obj[c].Quantity 
+    }
+    ).then(res=>console.log(res)).catch(err=>console.log(err));
 }
 function buyThree1(e)
 {
+    e.preventDefault();
     let car=e.target.parentElement.id;
+    let c=e.target.parentElement.value;
     console.log(car);
-    obj[car].Quantity=obj[car].Quantity-3;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+
+   // let keep=obj[car].Quantity
+  // console.log(obj[c].Quantity--)
+  obj[c].Quantity=obj[c].Quantity-3;
+   console.log(obj[c].Quantity);
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+       // _id:obj[c]._id,
+        ItemName:obj[c].ItemName,
+        Description:obj[c].Description,
+        Price:obj[c].Price,
+        Quantity:obj[c].Quantity 
+    }
+    ).then(res=>console.log(res)).catch(err=>console.log(err));
 } 
 
 
@@ -72,10 +113,10 @@ function saveCrudC(e)
         Quantity:document.getElementById('Quantity').value
     }
     
- axios.post(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList`,myObj).then((res)=>{
+ axios.post(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList`,myObj).then((res)=>{
     var coid=res.data._id; 
  console.log(coid);
-   var ul=document.getElementById("list");
+   var ul=document.getElementById('users');
    var li=document.createElement('li');
    li.id=coid;
    var btn=document.createElement('button');
@@ -104,21 +145,40 @@ function buyOne(e)
     let car=e.target.parentElement.id;
     console.log(car);
     myObj.Quantity=myObj.Quantity-1;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+    console.log(myObj.Quantity)
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+        // _id:obj[c]._id,
+         ItemName:myObj.ItemName,
+         Description:myObj.Description,
+         Price:myObj.Price,
+         Quantity:myObj.Quantity 
+     }).then(res=>console.log(res)).catch(err=>console.log(err));
    // myObj.Price=myObj-1;
 }
 function buyTwo(e)
 {let car=e.target.parentElement.id;
     console.log(car);
     myObj.Quantity=myObj.Quantity-2;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+        // _id:obj[c]._id,
+         ItemName:myObj.ItemName,
+         Description:myObj.Description,
+         Price:myObj.Price,
+         Quantity:myObj.Quantity 
+     }).then(res=>console.log(res)).catch(err=>console.log(err));
 }
 function buyThree(e)
 {
     let car=e.target.parentElement.id;
     console.log(car);
     myObj.Quantity=myObj.Quantity-3;
-    axios.put(`https://crudcrud.com/api/c82fd812014b4fd9b750426dccc2cb56/ShopkeeperList/${car}`,myObj).then(res=>console.log(res)).catch(err=>console.log(err));
+    axios.put(`https://crudcrud.com/api/4c88740637d84a14bb218dd1bfff76e7/ShopkeeperList/${car}`,{
+        // _id:obj[c]._id,
+         ItemName:myObj.ItemName,
+         Description:myObj.Description,
+         Price:myObj.Price,
+         Quantity:myObj.Quantity 
+     }).then(res=>{console.log(res)}).catch(err=>console.log(err));
 } 
 
 
