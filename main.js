@@ -2,7 +2,7 @@
 var form=document.getElementById('my-form');
 form.addEventListener('submit',saveLocal);
 window.addEventListener("DOMContentLoaded",()=>{
-    axios.get("https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData").then((response)=>{
+    axios.get("https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData").then((response)=>{
     console.log(typeof(response));
     var d=response.data
     for(var key in d)
@@ -31,7 +31,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         var par=editBtn.parentElement;
         var cid=par.id;
         let op;
-        axios.get(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${cid}`,).then((res)=>{
+        axios.get(`https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData/${cid}`,).then((res)=>{
              const obj=res.data;
              
                 nameEdit.value=obj.name,
@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         par.childNodes[0].remove();
         par.childNodes[0].remove();
         
-        axios.put(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${cid}`,op).then((res)=>console.log(res)).catch(err=>console.log(err));
+        axios.put(`https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData/${cid}`,op).then((res)=>console.log(res)).catch(err=>console.log(err));
        // localStorage.removeItem(myObj.email);
         
 
@@ -61,10 +61,10 @@ window.addEventListener("DOMContentLoaded",()=>{
     function removeIt(e)
     {
     e.preventDefault();
-     var par=btn.parentElement;
+     var par=e.target.parentElement;
      var id=par.id;
      console.log(id);
-     axios.delete(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${id}`).then(res=>alert("one element got deleted!!")).catch(err=>console.log(err));
+     axios.delete(`https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData/${id}`).then(res=>alert("one element got deleted!!")).catch(err=>console.log(err));
 
      par.childNodes[0].remove();
      par.childNodes[0].remove();
@@ -96,8 +96,14 @@ function saveLocal(e)
     li.className="item";
     var myJSON=JSON.stringify(myObj);
     ////---localStorage.setItem(myObj.email,myJSON);
-     axios.post("https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData",myObj).then((response)=>console.log(response)).catch(err=>console.log(err))
-    axios.get("https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData").then((response)=>{
+    var oid;
+     axios.post("https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData",myObj).then((response)=>{
+     
+    oid=response.data._id;
+    console.log(oid);
+    }).catch(err=>console.log(err))
+       
+    axios.get("https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData").then((response)=>{
       var j=JSON.stringify(response)  
     }).catch((err)=>console.log(err));
 
@@ -107,6 +113,7 @@ function saveLocal(e)
     var editBtn=document.createElement('button');
     editBtn.appendChild(document.createTextNode('Edit'));
     li.appendChild(document.createTextNode(myObj.name+" "+myObj.email+" "+myObj.phone));
+    li.id=oid;
     btn.appendChild(document.createTextNode('Delete'));
     
     li.appendChild(btn);
@@ -135,13 +142,15 @@ function saveLocal(e)
     {
     e.preventDefault();
     
-     var par=btn.parentElement;
+     var par=e.target.parentElement;
+     //btn.parentElement;
      var id=par.id;
      
-     axios.delete(`https://crudcrud.com/api/95f01ea808004f7f9b43f506560d5e12/appointmentData/${id}`).then(res=>alert("element got deleted")).catch(err=>console.log(err));
-     par.childNodes[0].remove();
-     par.childNodes[0].remove();
-     par.childNodes[0].remove();
+     axios.delete(`https://crudcrud.com/api/0c4d8d4bb3fb46a2812c96a548c9b3cc/appointmentData/${id}`).then(res=>alert("element got deleted")).catch(err=>console.log(err));
+    par.remove();
+     //  par.childNodes[0].remove();
+    //  par.childNodes[0].remove();
+    //  par.childNodes[0].remove();
      
      
     }
